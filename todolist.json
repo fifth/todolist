@@ -115,5 +115,23 @@
 		"start": "2014-10-11",
 		"end": "",
 		"url": ""
+	},
+	{
+		"id": "12",
+		"content": "画一页漫画（四格）",
+		"content-jap": "",
+		"content-eng": "",
+		"start": "2014-10-14",
+		"end": "",
+		"url": ""
+	},
+	{
+		"id": "13",
+		"content": "读一本日文原版小说",
+		"content-jap": "",
+		"content-eng": "",
+		"start": "2014-10-14",
+		"end": "",
+		"url": ""
 	}
 ]
