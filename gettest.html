@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="../jquery-2.1.1.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		alert('sssss');
+		$.get('./test.php', function(data){
+			alert(data);
+			var obj=eval("("+data+")");
+			alert(obj);
+		});
+	</script>
+</body>
+</html>

@@ -44,34 +44,39 @@
 		// english version
 		if (preg_match("/\<h3\>[\s\S]*?\<\/blockquote\>/", $content, $matches)) {
 			if (preg_match("/(?<=\<\/a\>)[\s\S]*?(?=\<\/h3\>)/", $matches[0], $temp)) {
-				$re[$key]['title-en']=$temp[0];
+				$re[$key]['title-en']=trim($temp[0]);
 			}
 			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0], $temp)) {
-				$re[$key]['description-en']=strip_tags($temp[0]);
+				$re[$key]['description-en']=trim(strip_tags($temp[0]));
 			}
 		}
 		if (preg_match_all("/\<h4\>[\s\S]*?\<\/blockquote\>/", $content, $matches)) {
 			// print_r($matches[0]);
 			// die();
 			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0][0], $temp)) {
-				$re[$key]['time-start']=strip_tags($temp[0]);
+				$re[$key]['time-start']=trim(strip_tags($temp[0]));
 			}
 			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0][1], $temp)) {
-				$re[$key]['time-end']=strip_tags($temp[0]);
+				$re[$key]['time-end']=trim(strip_tags($temp[0]));
 			}
 			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0][2], $temp)) {
-				$re[$key]['related-links']=strip_tags($temp[0]);
+				$re[$key]['related-links']=trim(strip_tags($temp[0]));
 			}
 			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0][3], $temp)) {
-				$re[$key]['contributer']=strip_tags($temp[0]);
+				$re[$key]['contributer']=trim(strip_tags($temp[0]));
 			}
 		}
 		// extra content
 		if (preg_match("/\<h5\>[\s\S]*?\<\/blockquote\>/", $content, $matches)) {
 			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0], $temp)) {
-				$re[$key]['extra-content']=strip_tags($temp[0]);
+				$re[$key]['extra-content']=trim(strip_tags($temp[0]));
 			}
 		}
-		echo json_encode($re);
+
+		$file=fopen("todolist.json", "w");
+		fwrite($file, json_encode($re));
+		fclose($file);
+
+		header("location: http://localhost/index_test.html");		
 	}
 ?>
