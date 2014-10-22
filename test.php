@@ -25,66 +25,53 @@
 		}
 		// chinese version
 		if (preg_match("/\<h1\>[\s\S]*?\<\/blockquote\>/", $content, $matches)) {
-			print_r($matches[0]);
+			if (preg_match("/(?<=\<\/a\>)[\s\S]*?(?=\<\/h1\>)/", $matches[0], $temp)) {
+				$re[$key]['title-zh']=$temp[0];
+			}
+			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0], $temp)) {
+				$re[$key]['description-zh']=strip_tags($temp[0]);
+			}
 		}
-		if ($key==3) {
+		// japanese version
+		if (preg_match("/\<h2\>[\s\S]*?\<\/blockquote\>/", $content, $matches)) {
+			if (preg_match("/(?<=\<\/a\>)[\s\S]*?(?=\<\/h2\>)/", $matches[0], $temp)) {
+				$re[$key]['title-jp']=$temp[0];
+			}
+			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0], $temp)) {
+				$re[$key]['description-jp']=strip_tags($temp[0]);
+			}
+		}
+		// english version
+		if (preg_match("/\<h3\>[\s\S]*?\<\/blockquote\>/", $content, $matches)) {
+			if (preg_match("/(?<=\<\/a\>)[\s\S]*?(?=\<\/h3\>)/", $matches[0], $temp)) {
+				$re[$key]['title-en']=$temp[0];
+			}
+			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0], $temp)) {
+				$re[$key]['description-en']=strip_tags($temp[0]);
+			}
+		}
+		if (preg_match_all("/\<h4\>[\s\S]*?\<\/blockquote\>/", $content, $matches)) {
+			// print_r($matches[0]);
 			// die();
+			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0][0], $temp)) {
+				$re[$key]['time-start']=strip_tags($temp[0]);
+			}
+			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0][1], $temp)) {
+				$re[$key]['time-end']=strip_tags($temp[0]);
+			}
+			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0][2], $temp)) {
+				$re[$key]['related-links']=strip_tags($temp[0]);
+			}
+			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0][3], $temp)) {
+				$re[$key]['contributer']=strip_tags($temp[0]);
+			}
 		}
-		// if (preg_match("/(?<=\<\/a\>)[\s\S]*?(?=\<\/h1\>)/", $content, $matches)) {
-		// 	print_r('title-zh');
-		// 	$re[$key]['title-zh']=$matches[0];
-		// 	preg_match("/(?<=\<\/h1\>)[\s\S]*/", $content, $matches);
-		// 	$content=$matches[0];
-		// }
-		// if (preg_match("/(?<=\<\/a\>)[\s\S]*?(?=\<\/h2\>)/", $content, $matches)) {
-		// 	print_r('title-jp');
-		// 	$re[$key]['title-jp']=$matches[0];
-		// 	preg_match("/(?<=\<\/h2\>)[\s\S]*/", $content, $matches);
-		// 	$content=$matches[0];
-		// }
-		// if (preg_match("/(?<=\<\/a\>)[\s\S]*?(?=\<\/h3\>)/", $content, $matches)) {
-		// 	print_r('title-en');
-		// 	$re[$key]['title-en']=$matches[0];
-		// 	preg_match("/(?<=\<\/h3\>)[\s\S]*/", $content, $matches);
-		// 	$content=$matches[0];
-		// }
-		// if (preg_match("/(?<=time\sstart\<\/h4\>\<p\>)[\S]*?(?=\<\/p\>)/",$content , $matches)) {
-		// 	print_r('time-start');
-		// 	$re[$key]['time-start']=$matches[0];
-		// 	preg_match("/(?<=\<\/p\>)[\s\S]*/", $content, $matches);
-		// 	$content=$matches[0];
-		// }
-		// if (preg_match("/(?<=time\send\<\/h4\>\<p\>)[\S]*?(?=\<\/p\>)/",$content , $matches)) {
-		// 	print_r('time-end');
-		// 	$re[$key]['time-end']=$matches[0];
-		// 	preg_match("/(?<=\<\/p\>)[\s\S]*/", $content, $matches);
-		// 	$content=$matches[0];
-		// }
-		// if (preg_match("/(?<=related\slinks\<\/h4\>\<p\>)[\S]*?(?=\<\/p\>)/",$content , $matches)) {
-		// 	print_r('related-links');
-		// 	$re[$key]['related-links']=$matches[0];
-		// 	preg_match("/(?<=\<\/p\>)[\s\S]*/", $content, $matches);
-		// 	$content=$matches[0];
-		// }
-		// if (preg_match("/(?<=contributer\<\/h4\>\<p\>)[\S]*?(?=\<\/p\>)/",$content , $matches)) {
-		// 	print_r('contributer');
-		// 	$re[$key]['contributer']=$matches[0];
-		// 	preg_match("/(?<=\<\/p\>)[\s\S]*/", $content, $matches);
-		// 	$content=$matches[0];
-		// }
-		// if (preg_match_all("/\<p\>[\s\S]*?\<\/p\>/", $content, $matches)) {
-		// 	for ($i=0; $i < $matches[0]; $i++) { 
-		// 		preg_match("", $content)
-		// 	}
-		// 	print_r(count($matches[0]));
-		// 	print_r("<br/>");
-		// }
-		// if ($key==3) {
-			// print_r($re);
-			// print_r($re[$key]['title-jp']);
-			// print_r($re[$key]['title-en']);
-			// print_r($content);
-			// die();	
-		// }
+		// extra content
+		if (preg_match("/\<h5\>[\s\S]*?\<\/blockquote\>/", $content, $matches)) {
+			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0], $temp)) {
+				$re[$key]['extra-content']=strip_tags($temp[0]);
+			}
+		}
+		echo json_encode($re);
 	}
 ?>
