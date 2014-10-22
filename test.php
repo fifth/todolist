@@ -24,30 +24,60 @@
 			$content=$matches[0];
 		}
 		if (preg_match("/(?<=\<\/a\>)[\s\S]*?(?=\<\/h1\>)/", $content, $matches)) {
+			print_r('title-zh');
 			$re[$key]['title-zh']=$matches[0];
 			preg_match("/(?<=\<\/h1\>)[\s\S]*/", $content, $matches);
 			$content=$matches[0];
 		}
 		if (preg_match("/(?<=\<\/a\>)[\s\S]*?(?=\<\/h2\>)/", $content, $matches)) {
+			print_r('title-jp');
 			$re[$key]['title-jp']=$matches[0];
 			preg_match("/(?<=\<\/h2\>)[\s\S]*/", $content, $matches);
 			$content=$matches[0];
 		}
 		if (preg_match("/(?<=\<\/a\>)[\s\S]*?(?=\<\/h3\>)/", $content, $matches)) {
+			print_r('title-en');
 			$re[$key]['title-en']=$matches[0];
 			preg_match("/(?<=\<\/h3\>)[\s\S]*/", $content, $matches);
 			$content=$matches[0];
 		}
-		if (preg_match_all("/\<p\>[\s\S]*?\<\/p\>/", $content, $matches)) {
-			print_r(count($matches[0]));
-			print_r("<br/>");
+		if (preg_match("/(?<=time\sstart\<\/h4\>\<p\>)[\S]*?(?=\<\/p\>)/",$content , $matches)) {
+			print_r('time-start');
+			$re[$key]['time-start']=$matches[0];
+			preg_match("/(?<=\<\/p\>)[\s\S]*/", $content, $matches);
+			$content=$matches[0];
 		}
-		if ($key==3) {
-			print_r($re[$key]['title-zh']);
-			print_r($re[$key]['title-jp']);
-			print_r($re[$key]['title-en']);
-			print_r($content);
+		if (preg_match("/(?<=time\send\<\/h4\>\<p\>)[\S]*?(?=\<\/p\>)/",$content , $matches)) {
+			print_r('time-end');
+			$re[$key]['time-end']=$matches[0];
+			preg_match("/(?<=\<\/p\>)[\s\S]*/", $content, $matches);
+			$content=$matches[0];
+		}
+		if (preg_match("/(?<=related\slinks\<\/h4\>\<p\>)[\S]*?(?=\<\/p\>)/",$content , $matches)) {
+			print_r('related-links');
+			$re[$key]['related-links']=$matches[0];
+			preg_match("/(?<=\<\/p\>)[\s\S]*/", $content, $matches);
+			$content=$matches[0];
+		}
+		if (preg_match("/(?<=contributer\<\/h4\>\<p\>)[\S]*?(?=\<\/p\>)/",$content , $matches)) {
+			print_r('contributer');
+			$re[$key]['contributer']=$matches[0];
+			preg_match("/(?<=\<\/p\>)[\s\S]*/", $content, $matches);
+			$content=$matches[0];
+		}
+		// if (preg_match_all("/\<p\>[\s\S]*?\<\/p\>/", $content, $matches)) {
+		// 	for ($i=0; $i < $matches[0]; $i++) { 
+		// 		preg_match("", $content)
+		// 	}
+		// 	print_r(count($matches[0]));
+		// 	print_r("<br/>");
+		// }
+		// if ($key==3) {
+			print_r($re);
+			// print_r($re[$key]['title-jp']);
+			// print_r($re[$key]['title-en']);
+			// print_r($content);
 			die();	
-		}
+		// }
 	}
 ?>
