@@ -29,7 +29,9 @@
 				$re[$key]['title-zh']=$temp[0];
 			}
 			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0], $temp)) {
-				$re[$key]['description-zh']=strip_tags($temp[0]);
+				if (trim(strip_tags($temp[0]))!='') {
+					$re[$key]['description-zh']=trim(strip_tags($temp[0]));
+				}
 			}
 		}
 		// japanese version
@@ -38,7 +40,9 @@
 				$re[$key]['title-jp']=$temp[0];
 			}
 			if (preg_match("/(?<=\<blockquote\>)[\s\S]*?(?=\<\/blockquote\>)/", $matches[0], $temp)) {
-				$re[$key]['description-jp']=strip_tags($temp[0]);
+				if (trim(strip_tags($temp[0]))!='') {
+					$re[$key]['description-jp']=trim(strip_tags($temp[0]));
+				}
 			}
 		}
 		// english version
@@ -87,6 +91,6 @@
 		fwrite($file, json_encode($re));
 		fclose($file);
 
-		header("location: http://fifth26.com/index_test.html");		
+		header("location: ../index_test.html");		
 	}
 ?>
