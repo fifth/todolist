@@ -91,6 +91,7 @@
 		fwrite($file, json_encode($re));
 		fclose($file);
 
-		header("location: ../index_test.html");		
+	header("location: ../index_test.html");		
+//		echo json_encode($re);
 	}
 ?>
